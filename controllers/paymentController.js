@@ -5,7 +5,7 @@ import { instance } from "../server.js";
 export const checkout = async(req, res, next) => {
 
     const options = {
-        amount: 50000,  // amount in the smallest currency unit
+        amount: Number(req.body.amount *100 ),  // amount in the smallest currency unit
         currency: "INR",
         // receipt: "order_rcptid_11"
       };
@@ -13,7 +13,8 @@ export const checkout = async(req, res, next) => {
       const order = await instance.orders.create(options)
       console.log("order", order)
       res.status(200).json({
-        success:true
+        success:true,
+        order,
       })
 
 };
